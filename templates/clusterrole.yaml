@@ -13,13 +13,13 @@ rules:
 - apiGroups: ["batch"]
   resources:
     - "jobs"
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: ["extensions"]
   resources:
     - "deployments"
     - "replicasets"
     - "ingresses"
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources:
     - "namespaces"

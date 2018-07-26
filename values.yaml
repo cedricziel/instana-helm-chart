@@ -18,3 +18,6 @@ instana:
     endpoint:
       host: saas-us-west-2.instana.io
       port: 443
+
+## Annotations to be added to pods
+podAnnotations: {}

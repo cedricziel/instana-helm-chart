@@ -52,6 +52,7 @@ The following table lists the configurable parameters of the Instana chart and t
 | `instana.leaderElectorPort`   | Instana leader elector sidecar port                                     | `42655`                                   |
 | `instana.agent.endpoint.host` | Instana agent backend endpoint host                                     | `saas-us-west-2.instana.io`               |
 | `instana.agent.endpoint.port` | Instana agent backend endpoint port                                     | `443`                                     |
+| `podAnnotations`              | Additional annotations to apply to the pod.                             | `{}`                                      |
 
 ### Agent
 

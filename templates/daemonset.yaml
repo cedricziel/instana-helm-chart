@@ -6,6 +6,10 @@ metadata:
   name: {{ .Values.instana.agent.name }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- if .Values.podAnnotations }}
+    annotations:
+{{ toYaml .Values.podAnnotations | indent 8}}
+    {{- end }}
 spec:
   template:
     metadata:

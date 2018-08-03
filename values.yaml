@@ -6,9 +6,6 @@ image:
 rbac:
   create: true
 
-service:
-  create: true
-
 instana:
   zone: k8s-cluster-name
   leaderElectorPort: 42655

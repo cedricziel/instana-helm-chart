@@ -59,7 +59,11 @@ Check the values for the endpoint entries in [agent backend configuration](https
 To install the chart with the release name `instana-agent` and set the values on the command line run:
 
 ```bash
-$ helm install . --name instana-agent --namespace instana-agent --set instana.agent.key=INSTANA_AGENT_KEY --set instana.agent.endpoint.host=HOST --set instana.agent.endpoint.port=PORT --set instana.zone=K8s-cluster
+$ helm install . --name instana-agent --namespace instana-agent \
+--set instana.agent.key=INSTANA_AGENT_KEY \
+--set instana.agent.endpoint.host=HOST \
+--set instana.agent.endpoint.port=PORT \
+--set instana.zone=K8s-cluster
 ```
 
 To install the chart with the release name `instana-agent` after editing the **values.yaml** file, run:

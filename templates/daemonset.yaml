@@ -38,6 +38,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.instana.agent.name }}-secret
                   key: key
+            - name: KARAF_OPTS
+              value: "-Xmx{{ add .Values.computeResources.requests.memory 64 }}M"
           securityContext:
             privileged: true
           volumeMounts:
@@ -55,30 +57,18 @@ spec:
               subPath: configuration.yaml
               mountPath: /root/configuration.yaml
           livenessProbe:
-            exec:
-              command:
-                - echo
-                - noop
+            httpGet:
+              path: /
+              port: 42699
             initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            exec:
-              command:
-                - echo
-                - noop
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
+            periodSeconds: 5
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "0.5"
+              memory: "{{ .Values.computeResources.requests.memory }}Mi"
+              cpu: {{ .Values.computeResources.requests.cpu }}
             limits:
-              memory: "512Mi"
-              cpu: "1.5"
+              memory: "{{ .Values.computeResources.limits.memory }}Mi"
+              cpu: {{ .Values.computeResources.limits.cpu }}
         - name: {{ .Values.instana.agent.name }}-leader-elector
           image: gcr.io/google-containers/leader-elector:0.5
           args: ["--election=instana", "--http=0.0.0.0:{{ .Values.instana.leaderElectorPort }}"]
@@ -89,19 +79,9 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.instana.leaderElectorPort }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 10
-            failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.instana.leaderElectorPort }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 10
-            failureThreshold: 5
+              port: 42699
+            initialDelaySeconds: 60
+            periodSeconds: 5
       volumes:
         - name: dev
           hostPath:

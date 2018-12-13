@@ -39,7 +39,7 @@ spec:
                   name: {{ .Values.instana.agent.name }}-secret
                   key: key
             - name: KARAF_OPTS
-              value: "-Xmx{{ add .Values.computeResources.limits.memory 64 }}M"
+              value: "-Xmx{{ mul .Values.computeResources.requests.memory 1.049 }}M -XX:+ExitOnOutOfMemoryError"
           securityContext:
             privileged: true
           volumeMounts:
@@ -60,7 +60,7 @@ spec:
             httpGet:
               path: /
               port: 42699
-            initialDelaySeconds: 60
+            initialDelaySeconds: 75
             periodSeconds: 5
           resources:
             requests:
@@ -80,7 +80,7 @@ spec:
             httpGet:
               path: /
               port: 42699
-            initialDelaySeconds: 60
+            initialDelaySeconds: 75
             periodSeconds: 5
       volumes:
         - name: dev

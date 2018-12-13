@@ -39,7 +39,7 @@ spec:
                   name: {{ .Values.instana.agent.name }}-secret
                   key: key
             - name: KARAF_OPTS
-              value: "-Xmx{{ add .Values.computeResources.requests.memory 64 }}M"
+              value: "-Xmx{{ add .Values.computeResources.limits.memory 64 }}M"
           securityContext:
             privileged: true
           volumeMounts:
